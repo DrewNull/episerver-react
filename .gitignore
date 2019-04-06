@@ -1,0 +1,11 @@
+﻿
+# folders
+.vs
+bin
+obj
+
+# specific folders
+/src/EpiserverReact/packages
+
+# file types
+*.user
