@@ -1,30 +1,72 @@
-// helps parse data from Content Delivery API responses
-class RenderHelper {
+/**
+ * Creates React components from Episerver content
+ */
+class ComponentFactory {
 
-    static getContentType(data) {
+    /**
+     * Creates a React component from an Episerver content item
+     * @param {EpiContentData} epiContentData 
+     * @param {*=} key 
+     */
+    static createFromContentData(epiContentData, key) {
 
-        return data.contentType[data.contentType.length - 1];
+        const contentType = EpiContentData.getContentType(epiContentData);
+        const ComponentDefinition = ComponentDefinitions[contentType];
+
+        return <ComponentDefinition data={epiContentData} key={key} />;
     }
-    
-    static getContentAreaItems(contentArea) {
+
+    /** 
+     * Creates a list of React components from an Episerver content area
+     * @param {EpiContentArea} epiContentArea
+     */
+    static createFromContentArea(epiContentArea) {
 
         let components = [];
-        const items = contentArea.expandedValue;
+        let items = epiContentArea.expandedValue || [];
 
         if (items && items.length > 0) {
 
-            for (let index = 0; index < items.length; index++) {
+            for (let key = 0; key < items.length; key++) {
 
-                const item = items[index];
-                const contentType = RenderHelper.getContentType(item);
-                const ComponentDefinition = ComponentDefinitions[contentType];
-                components.push(<ComponentDefinition data={item} key={index} />);
+                let item = items[key];
+                let component = ComponentFactory.createFromContentData(item, key);
+
+                components.push(component);
             }
         }
 
         return components;
     }
 }
+
+/**
+ * Represents an Episerver ContentArea
+ */
+class EpiContentArea {
+    /**
+     * List of child content items within the ContentArea
+     * @type Array<EpiContentData>
+     */
+    expandedValue;
+}
+
+/**
+ * Represents an Episerver ContentData instance
+ */
+class EpiContentData {
+    /**
+     * An Episerver content instance; can be a page, block, media, etc
+     * @type Array<string>
+     */
+    contentType;
+
+    static getContentType(contentData) {
+        return contentData && contentData.contentType && contentData.contentType[contentData.contentType.length - 1] || '';
+    }
+}
+
+// components
 
 class BannerBlock extends React.Component {
     render() {
@@ -60,14 +102,14 @@ class HomePage extends React.Component {
     render() {
         return (
             <div>
-                <h1>Home Page</h1>
+                <h1>Home Page: {this.props.data.name}</h1>
                 <div>
                     Main Content:
-                    {RenderHelper.getContentAreaItems(this.props.data.mainContent)}
+                    {ComponentFactory.createFromContentArea(this.props.data.mainContent)}
                 </div>
                 <div>
                     Side Content:
-                    {RenderHelper.getContentAreaItems(this.props.data.sideContent)}
+                    {ComponentFactory.createFromContentArea(this.props.data.sideContent)}
                 </div>
             </div>
         );
@@ -79,14 +121,13 @@ const ComponentDefinitions = {
     'BannerBlock': BannerBlock,
     'GridBlock': GridBlock,
     'HomePage': HomePage,
-    'RichTextBlock': RichTextBlock, 
+    'RichTextBlock': RichTextBlock,
 };
 
 // the rest is the main page React bootstrapper/renderer
 
 const main = document.querySelector('#main');
 const episerverUrl = main.dataset.episerverUrl;
-const episerverType = main.dataset.episerverType;
 
 const pageRequest = {
     headers: {
@@ -95,14 +136,16 @@ const pageRequest = {
     method: 'get',
     params: {
         'expand': '*'
-    }, 
+    },
     url: episerverUrl,
 };
 
 const renderPage = (response) => {
-    const contentType = RenderHelper.getContentType(response.data);
-    const ComponentDefinition = ComponentDefinitions[contentType];
-    ReactDOM.render(<ComponentDefinition data={response.data} />, main);
+
+    let data = response.data;
+    let component = ComponentFactory.createFromContentData(data);
+
+    ReactDOM.render(component, main);
 };
 
 const handleError = (error) => {
