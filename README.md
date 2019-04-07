@@ -1,4 +1,4 @@
-# Episerver Content Delivery API + React POC
+# Episerver Content Delivery API + React Example
 
 
 **Instructions**
