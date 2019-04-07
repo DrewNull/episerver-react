@@ -409,7 +409,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Static\js\" />
+    <Folder Include="Static\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="lang\EPiServer.ContentApi.OAuth.UI_en.xml" />
