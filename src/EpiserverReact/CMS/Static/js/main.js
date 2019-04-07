@@ -1,37 +1,44 @@
-//import React from 'react';
-//import ReactDOM from 'react-dom';
-
 const main = document.querySelector('#main');
-const episerverId = main.dataset.episerverId;
+const episerverUrl = main.dataset.episerverUrl;
 const episerverType = main.dataset.episerverType;
 
-let fetchInput = new Request(`http://localhost:3181/api/episerver/v2.0/content/${episerverId}`);
-let fetchInit = {
-    method: 'GET', 
-    credentials: 'include'
+class HomePage extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    render() {
+        return (
+            <div>
+                <h1>Home Page</h1>
+            </div>
+        );
+    }
+}
+
+const PageTypes = {
+    'HomePage': HomePage
 };
 
-fetch(fetchInput, fetchInit)
-    .then((response) => {
-        console.log(response);
-        const ContentType = response.contentType[response.contentType.length - 1];
-        ReactDOM.render(<ContentType data={response} />);
-    });
+const BlockTypes = {
+    
+};
 
-class CartPage extends React.Component {
-    render() {
-        return <h1>Cart Page</h1>;
+const pageRequest = {
+    method: 'get',
+    url: episerverUrl,
+    headers: {
+        'accept': 'application/json'
     }
-}
+};
 
-class ContentPage extends React.Component {
-    render() {
-        return <h1>Content Page</h1>;
-    }
-}
+const renderPage = (response) => {
+    let pageType = response.data.contentType[response.data.contentType.length - 1];
+    let PageType = PageTypes[pageType];
+    ReactDOM.render(<PageType data={response.data} />, main);
+};
 
-class HomePage extends React.Component {
-    render() {
-        return <h1>Home Page</h1>;
-    }
-}
+const handleError = (error) => {
+
+};
+
+axios(pageRequest).then(renderPage).catch(handleError);
