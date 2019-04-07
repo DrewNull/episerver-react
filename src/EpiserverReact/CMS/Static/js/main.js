@@ -2,28 +2,34 @@ const main = document.querySelector('#main');
 const episerverUrl = main.dataset.episerverUrl;
 const episerverType = main.dataset.episerverType;
 
-function getContentType(data) {
-    return data.contentType[data.contentType.length - 1];
-}
+class RenderHelper {
 
-function getContentAreaItems(contentArea) {
-    let components = [];
-    const items = contentArea.expandedValue;
-    if (items && items.length > 0) {
-        for (var index = 0; index < items.length; index++) {
-            let item = items[index];
-            let contentType = getContentType(item);
-            let ContentType = ContentTypes[contentType];
-            components.push(<ContentType data={item} key={index} />);
-        }
+    static getContentType(data) {
+
+        return data.contentType[data.contentType.length - 1];
     }
-    return components;
+    
+    static getContentAreaItems(contentArea) {
+
+        let components = [];
+        const items = contentArea.expandedValue;
+
+        if (items && items.length > 0) {
+
+            for (let index = 0; index < items.length; index++) {
+
+                const item = items[index];
+                const contentType = RenderHelper.getContentType(item);
+                const ComponentDefinition = ComponentDefinitions[contentType];
+                components.push(<ComponentDefinition data={item} key={index} />);
+            }
+        }
+
+        return components;
+    }
 }
 
 class BannerBlock extends React.Component {
-    constructor(props) {
-        super(props);
-    }
     render() {
         return (
             <div>
@@ -34,9 +40,6 @@ class BannerBlock extends React.Component {
 }
 
 class GridBlock extends React.Component {
-    constructor(props) {
-        super(props);
-    }
     render() {
         return (
             <div>
@@ -47,9 +50,6 @@ class GridBlock extends React.Component {
 }
 
 class RichTextBlock extends React.Component {
-    constructor(props) {
-        super(props);
-    }
     render() {
         return (
             <div>
@@ -59,57 +59,50 @@ class RichTextBlock extends React.Component {
     }
 }
 
-const ContentTypes = {
-    'BannerBlock': BannerBlock,
-    'GridBlock': GridBlock,
-    'RichTextBlock': RichTextBlock
-};
-
 class HomePage extends React.Component {
-    constructor(props) {
-        super(props);
-
-    }
     render() {
         return (
             <div>
                 <h1>Home Page</h1>
                 <div>
                     Main Content:
-                    {getContentAreaItems(this.props.data.mainContent)}
+                    {RenderHelper.getContentAreaItems(this.props.data.mainContent)}
                 </div>
                 <div>
                     Side Content:
-                    {getContentAreaItems(this.props.data.sideContent)}
+                    {RenderHelper.getContentAreaItems(this.props.data.sideContent)}
                 </div>
             </div>
         );
     }
 }
 
-const PageTypes = {
-    'HomePage': HomePage
+const ComponentDefinitions = {
+    'BannerBlock': BannerBlock,
+    'GridBlock': GridBlock,
+    'HomePage': HomePage,
+    'RichTextBlock': RichTextBlock, 
 };
 
 const pageRequest = {
-    method: 'get',
-    url: episerverUrl,
     headers: {
         'accept': 'application/json'
     },
+    method: 'get',
     params: {
         'expand': '*'
-    }
+    }, 
+    url: episerverUrl,
 };
 
 const renderPage = (response) => {
-    let pageType = getContentType(response.data);
-    let PageType = PageTypes[pageType];
-    ReactDOM.render(<PageType data={response.data} key={response.data.contentLink.id} />, main);
+    const contentType = RenderHelper.getContentType(response.data);
+    const ComponentDefinition = ComponentDefinitions[contentType];
+    ReactDOM.render(<ComponentDefinition data={response.data} />, main);
 };
 
 const handleError = (error) => {
-
+    console.log('Error rendering page: ', error);
 };
 
 axios(pageRequest).then(renderPage).catch(handleError);
