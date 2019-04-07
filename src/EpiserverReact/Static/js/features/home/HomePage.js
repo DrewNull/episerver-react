@@ -1,8 +1,6 @@
 import ComponentFactory from '../../foundation/ComponentFactory';
 import ContentPageModel from '../../foundation/ContentPageModel';
 
-export class HomePageModel extends ContentPageModel { }
-
 export default class HomePage extends React.Component {
     render() {
 
@@ -24,3 +22,5 @@ export default class HomePage extends React.Component {
         );
     }
 }
+
+export class HomePageModel extends ContentPageModel { }

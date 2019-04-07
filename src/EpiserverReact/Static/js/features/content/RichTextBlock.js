@@ -1,7 +1,5 @@
 import ContentModel from '../../foundation/ContentModel';
 
-export class RichTextBlockModel extends ContentModel { }
-
 export default class RichTextBlock extends React.Component {
     render() {
 
@@ -15,3 +13,5 @@ export default class RichTextBlock extends React.Component {
         );
     }
 }
+
+export class RichTextBlockModel extends ContentModel { }

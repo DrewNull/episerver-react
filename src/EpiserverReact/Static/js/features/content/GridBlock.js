@@ -1,7 +1,5 @@
 import ContentModel from '../../foundation/ContentModel';
 
-export class GridBlockModel extends ContentModel { }
-
 export default class GridBlock extends React.Component {
     render() {
 
@@ -15,3 +13,5 @@ export default class GridBlock extends React.Component {
         );
     }
 }
+
+export class GridBlockModel extends ContentModel { }

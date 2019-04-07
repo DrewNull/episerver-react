@@ -1,6 +1,5 @@
 import ContentModel from '../../foundation/ContentModel';
-
-export class BannerBlockModel extends ContentModel { }
+import ImageMedia, { ImageMediaModelWrapper } from '../../foundation/media/ImageMedia';
 
 export default class BannerBlock extends React.Component {
     render() {
@@ -11,7 +10,14 @@ export default class BannerBlock extends React.Component {
         return (
             <div>
                 <h2>Banner Block: {model.name}</h2>
+                <ImageMedia data={model.background.expandedValue} />
             </div>
         );
     }
+}
+
+export class BannerBlockModel extends ContentModel { 
+
+    /** @type {ImageMediaModelWrapper} */
+    background;
 }
