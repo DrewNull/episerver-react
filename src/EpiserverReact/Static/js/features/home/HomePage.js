@@ -1,5 +1,5 @@
 import ComponentFactory from '../../foundation/ComponentFactory';
-import ContentPageModel from '../../foundation/ContentPageModel';
+import ContentPageModel from '../../foundation/pages/ContentPageModel';
 
 export default class HomePage extends React.Component {
     render() {

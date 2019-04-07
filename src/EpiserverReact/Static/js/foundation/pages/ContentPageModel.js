@@ -1,4 +1,4 @@
-import ContentModel from './ContentModel';
+import ContentModel from '../ContentModel';
 
 export default class ContentPageModel extends ContentModel {
 

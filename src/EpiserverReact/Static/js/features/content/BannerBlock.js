@@ -1,5 +1,5 @@
-import ContentModel from '../../foundation/ContentModel';
 import ImageMedia, { ImageMediaModelWrapper } from '../../foundation/media/ImageMedia';
+import ContentModel from '../../foundation/ContentModel';
 
 export default class BannerBlock extends React.Component {
     render() {
