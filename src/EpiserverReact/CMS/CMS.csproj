@@ -364,6 +364,23 @@
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ItemGroup>
+    <Compile Include="Features\Cart\Controllers\CartPageController.cs" />
+    <Compile Include="Features\Cart\Models\CartPage.cs" />
+    <Compile Include="Features\Cart\Models\OrderItemsBlock.cs" />
+    <Compile Include="Features\Cart\Models\OrderSummaryBlock.cs" />
+    <Compile Include="Features\Content\Controllers\ContentPageController.cs" />
+    <Compile Include="Features\Content\Models\BannerBlock.cs" />
+    <Compile Include="Features\Content\Models\ContentPage.cs" />
+    <Compile Include="Features\Content\Models\GridBlock.cs" />
+    <Compile Include="Features\Content\Models\RichTextBlock.cs" />
+    <Compile Include="Features\Footers\Models\DefaultFooterBlock.cs" />
+    <Compile Include="Features\Headers\Models\DefaultHeaderBlock.cs" />
+    <Compile Include="Features\Home\Controllers\HomePageController.cs" />
+    <Compile Include="Features\Home\Models\HomePage.cs" />
+    <Compile Include="Features\Products\Models\ProductCategoryPage.cs" />
+    <Compile Include="Features\Products\Models\ProductDetailPage.cs" />
+    <Compile Include="Features\Products\Models\ProductItem.cs" />
+    <Compile Include="Features\Products\Models\ProductOption.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -372,14 +389,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Business\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\Blocks\" />
-    <Folder Include="Models\Media\" />
-    <Folder Include="Models\Pages\" />
-    <Folder Include="Models\Properties\" />
     <Folder Include="Static\" />
-    <Folder Include="Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />
@@ -410,6 +420,10 @@
     <Content Include="modules\_protected\CMS\web.config" />
     <Content Include="modules\_protected\CMS\CMS.zip" />
     <None Include="packages.config" />
+    <Content Include="Views\CartPage\Index.cshtml" />
+    <Content Include="Views\ContentPage\Index.cshtml" />
+    <Content Include="Views\HomePage\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
