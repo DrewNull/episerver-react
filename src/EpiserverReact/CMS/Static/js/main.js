@@ -46,7 +46,7 @@ class ComponentFactory {
 class EpiContentArea {
     /**
      * List of child content items within the ContentArea
-     * @type Array<EpiContentData>
+     * @type {Array<EpiContentData>}
      */
     expandedValue;
 }
@@ -57,7 +57,7 @@ class EpiContentArea {
 class EpiContentData {
     /**
      * An Episerver content instance; can be a page, block, media, etc
-     * @type Array<string>
+     * @type {Array<string>}
      */
     contentType;
 
@@ -66,13 +66,38 @@ class EpiContentData {
     }
 }
 
+class ContentModel {
+
+    /** @type {string} */
+    name;
+}
+
+class BannerBlockModel extends ContentModel { }
+class GridBlockModel extends ContentModel { }
+class RichTextBlockModel extends ContentModel { }
+
+class ContentPageModel extends ContentModel {
+
+    /** @type {ContentArea} */
+    mainContent;
+
+    /** @type {ContentArea} */
+    sideContent;
+}
+
+class HomePageModel extends ContentPageModel { }
+
 // components
 
 class BannerBlock extends React.Component {
     render() {
+
+        /** @type {BannerBlockModel} */
+        const model = this.props.data;
+
         return (
             <div>
-                <h2>Banner Block: {this.props.data.name}</h2>
+                <h2>Banner Block: {model.name}</h2>
             </div>
         );
     }
@@ -80,9 +105,13 @@ class BannerBlock extends React.Component {
 
 class GridBlock extends React.Component {
     render() {
+
+        /** @type {GridBlockModel} */
+        const model = this.props.data;
+
         return (
             <div>
-                <h2>Grid Block: {this.props.data.name}</h2>
+                <h2>Grid Block: {model.name}</h2>
             </div>
         );
     }
@@ -90,9 +119,13 @@ class GridBlock extends React.Component {
 
 class RichTextBlock extends React.Component {
     render() {
+
+        /** @type {RichTextBlockModel} */
+        const model = this.props.data;
+
         return (
             <div>
-                <h2>Rich Text Block: {this.props.data.name}</h2>
+                <h2>Rich Text Block: {model.name}</h2>
             </div>
         );
     }
@@ -100,16 +133,20 @@ class RichTextBlock extends React.Component {
 
 class HomePage extends React.Component {
     render() {
+
+        /** @type {HomePageModel} */
+        const model = this.props.data;
+
         return (
             <div>
-                <h1>Home Page: {this.props.data.name}</h1>
+                <h1>Home Page: {model.name}</h1>
                 <div>
                     Main Content:
-                    {ComponentFactory.createFromContentArea(this.props.data.mainContent)}
+                    {ComponentFactory.createFromContentArea(model.mainContent)}
                 </div>
                 <div>
                     Side Content:
-                    {ComponentFactory.createFromContentArea(this.props.data.sideContent)}
+                    {ComponentFactory.createFromContentArea(model.sideContent)}
                 </div>
             </div>
         );
