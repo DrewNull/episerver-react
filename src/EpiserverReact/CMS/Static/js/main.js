@@ -1,7 +1,4 @@
-const main = document.querySelector('#main');
-const episerverUrl = main.dataset.episerverUrl;
-const episerverType = main.dataset.episerverType;
-
+// helps parse data from Content Delivery API responses
 class RenderHelper {
 
     static getContentType(data) {
@@ -77,12 +74,19 @@ class HomePage extends React.Component {
     }
 }
 
+// component definition registration - required to dynamically render components
 const ComponentDefinitions = {
     'BannerBlock': BannerBlock,
     'GridBlock': GridBlock,
     'HomePage': HomePage,
     'RichTextBlock': RichTextBlock, 
 };
+
+// the rest is the main page React bootstrapper/renderer
+
+const main = document.querySelector('#main');
+const episerverUrl = main.dataset.episerverUrl;
+const episerverType = main.dataset.episerverType;
 
 const pageRequest = {
     headers: {
