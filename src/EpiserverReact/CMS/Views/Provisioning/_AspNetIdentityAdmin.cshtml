@@ -1,0 +1,43 @@
+﻿@using System.Web.Mvc.Html
+@using CMS.Provisioning.AspNetIdentityAdmin
+@model CMS.Provisioning.AspNetIdentityAdmin.AspNetIdentityAdminModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+        <h1>Create Administrator</h1>
+        @using (Html.BeginForm("Index", "AspNetIdentityAdmin", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <p>
+                <div>@Html.LabelFor(m => m.Email)</div>
+                <div>@Html.TextBoxFor(m => m.Email)</div>
+                <div>@Html.ValidationMessageFor(m => m.Email)</div>
+            </p>
+            <p>
+                <div>@Html.LabelFor(m => m.Password)</div>
+                <div>@Html.PasswordFor(m => m.Password)</div>
+                <div>@Html.ValidationMessageFor(m => m.Password)</div>
+            </p>
+            <p>
+                <div>@Html.LabelFor(m => m.PasswordConfirm)</div>
+                <div>@Html.PasswordFor(m => m.PasswordConfirm)</div>
+                <div>@Html.ValidationMessageFor(m => m.PasswordConfirm)</div>
+            </p>
+            <p>
+                <div>@Html.ValidationMessage(AspNetIdentityAdminController.ErrorKey)</div>
+            </p>
+            <p>
+                <div><input type="submit" value="Create" /></div>
+            </p>
+        }
+    </div>
+</body>
+</html>

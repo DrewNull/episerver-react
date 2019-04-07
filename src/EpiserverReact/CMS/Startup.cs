@@ -1,22 +1,38 @@
 ﻿using System;
-using System.Threading.Tasks;
+using System.Web;
+using CMS.Provisioning.AspNetIdentityAdmin;
+using EPiServer.Cms.UI.AspNetIdentity;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
+using Microsoft.Owin.Security.Cookies;
 using Owin;
 
 [assembly: OwinStartup(typeof(CMS.Startup))]
 
 namespace CMS
 {
-    using EPiServer.ServiceApi.Owin;
+    using EPiServer.ContentApi.OAuth;
 
     public class Startup
     {
         public void Configuration(IAppBuilder app)
         {
-            // Enable bearer token authentication using Membership for Service Api
-            app.UseServiceApiMembershipTokenAuthorization(new ServiceApiTokenAuthorizationOptions
+            app.AddCmsAspNetIdentity<ApplicationUser>();
+
+            app.UseAspNetIdentityAdminPage(() => HttpContext.Current.Request.IsLocal);
+
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(60)
+                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                LoginPath = new PathString("/util/login.aspx"),
+                Provider = new CookieAuthenticationProvider
+                {
+                    OnValidateIdentity =
+                        SecurityStampValidator.OnValidateIdentity<ApplicationUserManager<ApplicationUser>, ApplicationUser>(
+                            validateInterval: TimeSpan.FromMinutes(30),
+                            regenerateIdentity: (manager, user) => manager.GenerateUserIdentityAsync(user))
+                }
             });
         }
     }
