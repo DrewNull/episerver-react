@@ -2,6 +2,7 @@
 # folders
 .vs
 bin
+node_modules
 obj
 
 # specific folders
