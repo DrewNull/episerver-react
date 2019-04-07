@@ -1,6 +1,4 @@
-/**
- * Creates React components from Episerver content
- */
+/** Creates React components from Episerver content */
 class ComponentFactory {
 
     /**
@@ -40,9 +38,7 @@ class ComponentFactory {
     }
 }
 
-/**
- * Represents an Episerver ContentArea
- */
+/** Represents an Episerver ContentArea */
 class EpiContentArea {
     /**
      * List of child content items within the ContentArea
@@ -51,9 +47,7 @@ class EpiContentArea {
     expandedValue;
 }
 
-/**
- * Represents an Episerver ContentData instance
- */
+/** Represents an Episerver ContentData instance */
 class EpiContentData {
     /**
      * An Episerver content instance; can be a page, block, media, etc
