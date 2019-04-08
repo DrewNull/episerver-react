@@ -393,9 +393,16 @@
     <Compile Include="Features\Products\Models\ProductDetailPage.cs" />
     <Compile Include="Features\Products\Models\ProductItem.cs" />
     <Compile Include="Features\Products\Models\ProductOption.cs" />
-    <Compile Include="Foundation\Blocks\HeadingBlock.cs" />
-    <Compile Include="Foundation\Blocks\LinkBlock.cs" />
+    <Compile Include="Foundation\Blocks\Heading\HeadingBlock.cs" />
+    <Compile Include="Foundation\Blocks\Heading\HeadingBlockPropertyModel.cs" />
+    <Compile Include="Foundation\Blocks\Heading\HeadingBlockPropertyModelConverter.cs" />
+    <Compile Include="Foundation\Blocks\Heading\HeadingLevel.cs" />
+    <Compile Include="Foundation\Blocks\Link\LinkBlock.cs" />
+    <Compile Include="Foundation\Blocks\Link\LinkBlockPropertyModel.cs" />
+    <Compile Include="Foundation\Blocks\Link\LinkBlockPropertyModelConverter.cs" />
+    <Compile Include="Foundation\Extensions\EnumExtensions.cs" />
     <Compile Include="Foundation\Media\ImageMedia.cs" />
+    <Compile Include="Foundation\SelectionFactories\EnumSelectionFactory.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -1,5 +1,7 @@
-import ImageMedia, { ImageMediaModelWrapper } from '../../foundation/media/ImageMedia';
-import ContentModel from '../../foundation/ContentModel';
+import HeadingBlock, { HeadingBlockProperty } from '../../foundation/blocks/HeadingBlock';
+import LinkBlock, { LinkBlockProperty } from '../../foundation/blocks/LinkBlock';
+import ImageMedia, { ImageMediaWrapper } from '../../foundation/media/ImageMedia';
+import ContentModel from '../../foundation/models/ContentModel';
 
 export default class BannerBlock extends React.Component {
     render() {
@@ -9,15 +11,28 @@ export default class BannerBlock extends React.Component {
 
         return (
             <div>
-                <h2>Banner Block: {model.name}</h2>
-                <ImageMedia data={model.background.expandedValue} />
+                <div>
+                    <ImageMedia data={model.background.expandedValue} />
+                </div>
+                <div>
+                    <HeadingBlock data={model.heading.value} />
+                </div>
+                <div>
+                    <LinkBlock data={model.callToAction.value} />
+                </div>
             </div>
         );
     }
 }
 
-export class BannerBlockModel extends ContentModel { 
+export class BannerBlockModel extends ContentModel {
 
-    /** @type {ImageMediaModelWrapper} */
+    /** @type {ImageMediaWrapper} */
     background;
+
+    /** @type {LinkBlockProperty} */
+    callToAction;
+
+    /** @type {HeadingBlockProperty} */
+    heading;
 }

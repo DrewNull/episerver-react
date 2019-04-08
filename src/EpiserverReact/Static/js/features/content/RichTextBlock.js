@@ -1,4 +1,4 @@
-import ContentModel from '../../foundation/ContentModel';
+import ContentModel from '../../foundation/models/ContentModel';
 
 export default class RichTextBlock extends React.Component {
     render() {

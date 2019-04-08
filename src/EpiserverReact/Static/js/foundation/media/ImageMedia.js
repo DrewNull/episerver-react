@@ -3,8 +3,8 @@ import LongStringProperty from '../properties/LongStringProperty';
 export default class ImageMedia extends React.Component {
     render() {
 
-        /** @type {ImageMediaModel} */
-        const model = this.props.data;
+        /** @type {ImageMediaModel, ImageMediaWrapper} */
+        const model = this.props.data.expandedValue || this.props.data;
 
         return (
             <img src={model.url} alt={model.alternateText.value} />
@@ -21,7 +21,7 @@ export class ImageMediaModel {
     url;
 }
 
-export class ImageMediaModelWrapper {
+export class ImageMediaWrapper {
 
     /** @type {ImageMediaModel} */
     expandedValue;
